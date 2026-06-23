@@ -392,7 +392,7 @@ QPushButton::pressed {
                 <item>
                  <widget class="QLabel" name="select_model_label">
                   <property name="text">
-                   <string>选择模型文件</string>
+                   <string>选择本地模型文件</string>
                   </property>
                  </widget>
                 </item>
@@ -446,6 +446,24 @@ QPushButton::pressed {
                </property>
                <property name="text">
                 <string>开始转录底稿</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_trans_and_minutes">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>一键转录底稿+整理会议纪要</string>
                </property>
               </widget>
              </item>
@@ -590,6 +608,74 @@ QPushButton::pressed {
               </widget>
              </item>
              <item>
+              <widget class="QWidget" name="widget_8" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <item>
+                 <widget class="QLabel" name="ds_model_label">
+                  <property name="text">
+                   <string>选择Deepseek模型</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="ds_model_combobox">
+                  <property name="styleSheet">
+                   <string notr="true">background:white</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_6" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_10">
+                <item>
+                 <widget class="QLabel" name="skill_label">
+                  <property name="text">
+                   <string>是否传入skill文档辅助生成</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="skill_checkbox">
+                  <property name="maximumSize">
+                   <size>
+                    <width>18</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_open_skill">
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>18</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>编辑skill文件</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
               <widget class="QWidget" name="widget" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>
@@ -629,7 +715,7 @@ QPushButton::pressed {
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="btn_minutes">
                <property name="minimumSize">
                 <size>
                  <width>0</width>

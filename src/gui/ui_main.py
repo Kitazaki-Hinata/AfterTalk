@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QDateTimeEdit, QHBoxLayout,
-    QLabel, QLineEdit, QMainWindow, QPushButton,
-    QSizePolicy, QSpacerItem, QTextEdit, QTimeEdit,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QCheckBox, QComboBox,
+    QDateTimeEdit, QHBoxLayout, QLabel, QLineEdit,
+    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
+    QTextEdit, QTimeEdit, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -283,6 +283,13 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.btn_start_trans)
 
+        self.btn_trans_and_minutes = QPushButton(self.widget_3)
+        self.btn_trans_and_minutes.setObjectName(u"btn_trans_and_minutes")
+        self.btn_trans_and_minutes.setMinimumSize(QSize(0, 20))
+        self.btn_trans_and_minutes.setFont(font3)
+
+        self.verticalLayout_8.addWidget(self.btn_trans_and_minutes)
+
         self.btn_trans_folder = QPushButton(self.widget_3)
         self.btn_trans_folder.setObjectName(u"btn_trans_folder")
         self.btn_trans_folder.setMinimumSize(QSize(0, 20))
@@ -364,6 +371,50 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_9.addWidget(self.widget_7)
 
+        self.widget_8 = QWidget(self.minute_widget_center)
+        self.widget_8.setObjectName(u"widget_8")
+        self.horizontalLayout_11 = QHBoxLayout(self.widget_8)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.ds_model_label = QLabel(self.widget_8)
+        self.ds_model_label.setObjectName(u"ds_model_label")
+
+        self.horizontalLayout_11.addWidget(self.ds_model_label)
+
+        self.ds_model_combobox = QComboBox(self.widget_8)
+        self.ds_model_combobox.setObjectName(u"ds_model_combobox")
+        self.ds_model_combobox.setStyleSheet(u"background:white")
+
+        self.horizontalLayout_11.addWidget(self.ds_model_combobox)
+
+
+        self.verticalLayout_9.addWidget(self.widget_8)
+
+        self.widget_6 = QWidget(self.minute_widget_center)
+        self.widget_6.setObjectName(u"widget_6")
+        self.horizontalLayout_10 = QHBoxLayout(self.widget_6)
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.skill_label = QLabel(self.widget_6)
+        self.skill_label.setObjectName(u"skill_label")
+
+        self.horizontalLayout_10.addWidget(self.skill_label)
+
+        self.skill_checkbox = QCheckBox(self.widget_6)
+        self.skill_checkbox.setObjectName(u"skill_checkbox")
+        self.skill_checkbox.setMaximumSize(QSize(18, 16777215))
+        self.skill_checkbox.setChecked(True)
+
+        self.horizontalLayout_10.addWidget(self.skill_checkbox)
+
+        self.btn_open_skill = QPushButton(self.widget_6)
+        self.btn_open_skill.setObjectName(u"btn_open_skill")
+        self.btn_open_skill.setMinimumSize(QSize(100, 18))
+        self.btn_open_skill.setMaximumSize(QSize(100, 16777215))
+
+        self.horizontalLayout_10.addWidget(self.btn_open_skill)
+
+
+        self.verticalLayout_9.addWidget(self.widget_6)
+
         self.widget = QWidget(self.minute_widget_center)
         self.widget.setObjectName(u"widget")
         self.horizontalLayout_6 = QHBoxLayout(self.widget)
@@ -389,12 +440,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_9.addWidget(self.widget)
 
-        self.pushButton = QPushButton(self.minute_widget_center)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setMinimumSize(QSize(0, 20))
-        self.pushButton.setFont(font3)
+        self.btn_minutes = QPushButton(self.minute_widget_center)
+        self.btn_minutes.setObjectName(u"btn_minutes")
+        self.btn_minutes.setMinimumSize(QSize(0, 20))
+        self.btn_minutes.setFont(font3)
 
-        self.verticalLayout_9.addWidget(self.pushButton)
+        self.verticalLayout_9.addWidget(self.btn_minutes)
 
         self.btn_minute_folder = QPushButton(self.minute_widget_center)
         self.btn_minute_folder.setObjectName(u"btn_minute_folder")
@@ -485,10 +536,11 @@ class Ui_MainWindow(object):
         self.vocal_file_path.setText("")
         self.vocal_file_path.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Recording file path", None))
         self.btn_select_vocal.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u6587\u4ef6", None))
-        self.select_model_label.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u6a21\u578b\u6587\u4ef6", None))
+        self.select_model_label.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u672c\u5730\u6a21\u578b\u6587\u4ef6", None))
         self.model_file_path.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Model file path", None))
         self.btn_select_model.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u6587\u4ef6", None))
         self.btn_start_trans.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u8f6c\u5f55\u5e95\u7a3f", None))
+        self.btn_trans_and_minutes.setText(QCoreApplication.translate("MainWindow", u"\u4e00\u952e\u8f6c\u5f55\u5e95\u7a3f+\u6574\u7406\u4f1a\u8bae\u7eaa\u8981", None))
         self.btn_trans_folder.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u4f1a\u8bae\u5e95\u7a3f\u6587\u4ef6\u5939", None))
         self.btn_model_folder.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u6a21\u578b\u6587\u4ef6\u5939", None))
         self.minute_label.setText(QCoreApplication.translate("MainWindow", u"  \u4f1a\u8bae\u7eaa\u8981\u751f\u6210\u8bbe\u5b9a", None))
@@ -496,10 +548,14 @@ class Ui_MainWindow(object):
         self.api_entry.setInputMask("")
         self.api_entry.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u8f93\u5165Deepseek API KEY", None))
         self.btn_api.setText(QCoreApplication.translate("MainWindow", u"\u4f20\u5165", None))
+        self.ds_model_label.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9Deepseek\u6a21\u578b", None))
+        self.skill_label.setText(QCoreApplication.translate("MainWindow", u"\u662f\u5426\u4f20\u5165skill\u6587\u6863\u8f85\u52a9\u751f\u6210", None))
+        self.skill_checkbox.setText("")
+        self.btn_open_skill.setText(QCoreApplication.translate("MainWindow", u"\u7f16\u8f91skill\u6587\u4ef6", None))
         self.select_txt_label.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u5e95\u7a3f\u6587\u4ef6(.txt file)", None))
         self.txt_file_path.setPlaceholderText(QCoreApplication.translate("MainWindow", u".txt file path", None))
         self.btn_select_txt.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u6587\u4ef6", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u751f\u6210\u4f1a\u8bae\u7eaa\u8981", None))
+        self.btn_minutes.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u751f\u6210\u4f1a\u8bae\u7eaa\u8981", None))
         self.btn_minute_folder.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u4f1a\u8bae\u7eaa\u8981\u6587\u4ef6\u5939", None))
         self.btn_ds_open_web.setText(QCoreApplication.translate("MainWindow", u"\u6d4f\u89c8\u5668\u6253\u5f00Deepseek API\u7ba1\u7406\u754c\u9762", None))
         self.console_label.setText(QCoreApplication.translate("MainWindow", u"\u4efb\u52a1\u8fdb\u5ea6\u4e0e\u63a7\u5236\u53f0\u4fe1\u606f", None))

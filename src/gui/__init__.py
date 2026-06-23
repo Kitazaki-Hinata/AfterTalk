@@ -2,7 +2,6 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtSvgWidgets import *
-from .ui_mainwindow import MainWindow   
 
 
 from .ui_main import Ui_MainWindow
@@ -36,6 +35,9 @@ __all__ = [
     "QColorDialog",
     "QFontDatabase",
     "QLabel",
+
+    "QThread",
+    "Signal",
 
     "Ui_MainWindow",
     "Ui_Function",

@@ -48,39 +48,33 @@
     ```
 
 ### 四、项目架构
+<details>
+  <summary>点击查看详情</summary>
+
 ```
 meeting-minutes-ai/
 ├── main.py                       # 程序入口：启动 GUI
 ├── pyproject.toml
 ├── uv.lock
 ├── .env                          # DEEPSEEK_API 等密钥存储文件
+├── logs
 ├── src/
 │   │
 │   ├── config/                   # ── 配置层 ──
 │   │   ├── settings.py           # 加载 .env、全局配置（模型路径、采样率等）
-│   │   └── paths.py              # 集中管理 resource/、output/ 等路径常量
-│   │
-│   ├── core/                     # ── 业务编排层 ──
-│   │   ├── pipeline.py           # 串联：音频 → 转写 → 纪要 的主流程
-│   │   └── events.py             # 进度/状态事件（供 GUI 订阅，解耦 UI 与逻辑）
+│   │   └── paths.py              # 集中管理路径常量
 │   │
 │   ├── audio/                    # ── 音频模块 ──
-│   │   ├── recorder.py           # 实时录音（如 sounddevice / pyaudio）
+│   │   ├── recorder.py           # 实时录音
 │   │   ├── loader.py             # 加载/校验已有 wav/mp3 文件
 │   │   └── converter.py          # 格式转换、重采样(给 ASR 喂标准输入)
 │   │
-│   ├── asr/                      # ── 语音识别层 ──
-│   │   ├── base.py               # ASRBase 抽象类：transcribe(audio_path) -> str
+│   ├── asr/                      # ASR 模型
 │   │   └── local_asr.py          # 本地模型实现(读取 resource/model/)
 │   │
 │   ├── llm/                      # ── Deepseek 接入层 ──
 │   │   ├── llm_client.py         # Deepseek SDK 客户端封装(重试、超时、错误处理)
-│   │   ├── prompt.py             # 读取 resource/skill/*.md 构建 system prompt
-│   │   └── schema.py             # pydantic，将AI可能传回不同格式的回答统一成同一个格式
-│   │
-│   ├── minutes/                  # ── 会议纪要业务 ──
-│   │   ├── generator.py          # 调用 llm 生成纪要、做后处理
-│   │   └── exporter.py           # 导出 .md / .docx / .txt
+│   │   └── prompt.py             # 读取 resource/skill/*.md 构建 system prompt
 │   │
 │   ├── gui/     
 │   │   ├── ui_main.py                  
@@ -102,3 +96,5 @@ meeting-minutes-ai/
     ├── transcript/               # ASR 生成的底稿
     └── minutes/                  # 最终会议纪要
 ```
+
+</details>
