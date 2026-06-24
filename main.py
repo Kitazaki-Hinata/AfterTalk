@@ -10,11 +10,12 @@ from src.utils.logger import get_logger
 
 
 def main():
-    ensure_output_dirs()  # 确保子目录存在
+    ensure_output_dirs()  # 确保 output/ 子目录及 logs/ 存在
+
     log = get_logger(__name__)
     log.info("AfterTalk 启动")
 
-    app = QApplication()
+    app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     app.exec()

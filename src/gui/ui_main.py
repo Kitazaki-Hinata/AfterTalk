@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'ui_main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.9.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -400,7 +400,14 @@ class Ui_MainWindow(object):
 
         self.skill_checkbox = QCheckBox(self.widget_6)
         self.skill_checkbox.setObjectName(u"skill_checkbox")
-        self.skill_checkbox.setMaximumSize(QSize(18, 16777215))
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.skill_checkbox.sizePolicy().hasHeightForWidth())
+        self.skill_checkbox.setSizePolicy(sizePolicy)
+        self.skill_checkbox.setMinimumSize(QSize(0, 0))
+        self.skill_checkbox.setMaximumSize(QSize(16, 16777215))
+        self.skill_checkbox.setStyleSheet(u"background:white; color: black")
         self.skill_checkbox.setChecked(True)
 
         self.horizontalLayout_10.addWidget(self.skill_checkbox)

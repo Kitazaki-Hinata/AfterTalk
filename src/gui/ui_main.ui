@@ -639,11 +639,26 @@ QPushButton::pressed {
                 </item>
                 <item>
                  <widget class="QCheckBox" name="skill_checkbox">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>18</width>
+                    <width>16</width>
                     <height>16777215</height>
                    </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background:white; color: black</string>
                   </property>
                   <property name="text">
                    <string/>

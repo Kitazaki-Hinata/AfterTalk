@@ -38,6 +38,8 @@ def _setup_root_logger() -> None:
     console.setFormatter(fmt)
 
     # 文件：DEBUG 及以上，按天滚动（每次启动追加当天文件）
+    # 本模块在 import 时即配置日志，早于 main() 创建目录，故此处自行确保 logs/ 存在
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
     log_file = LOGS_DIR / f"aftertalk_{date.today():%Y%m%d}.log"
     file_handler = logging.FileHandler(log_file, encoding="utf-8")
     file_handler.setLevel(logging.DEBUG)

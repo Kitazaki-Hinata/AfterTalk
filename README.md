@@ -1,17 +1,17 @@
 <p align="center">
 </p>
 <h2 align="center">AfterTalk：AI + minutes</h2>
-  <h5 align="center">基于本地模型 + Deepseek SDK 的会议纪要工具</p>
+  <h5 align="center">基于本地模型 + Deepseek SDK 的会议纪要工具</h5>
 
 ----
 
 
 ### 一、项目目标
-使用本地语音识别（ASR）模型将会议录音转换为会议底稿（transcript），再通过 Deepseek SDK 对 transcript 进行整理与生成结构化会议纪要。音频输入支持：实时录音或上传已有音频文件（wav/mp3 等）。
+使用whisper cpp模型将会议录音转换为会议底稿（transcript），再通过 Deepseek SDK 对 transcript 进行整理与生成结构化会议纪要。音频输入支持：实时录音或上传已有音频文件（wav/mp3 等）。
 
 ### 二、主要功能
 - 本地录音并保存为标准音频文件（wav/mp3）。
-- 使用本地 ASR 模型将音频转写为文本（transcript）。
+- 使用本地whisper模型将音频转写为文本（transcript）。
 - 将 transcript 传给 Deepseek SDK，生成结构化会议纪要并回传给 GUI 展示或导出。
 
 ### 三、环境与依赖安装（推荐流程）
@@ -37,9 +37,11 @@
     ```
 ![示例图片](resource/pictures/envfile_screenshot.png "示例图片")
 
-5. [！！！等待添加！！！点击跳转到网盘链接]()，下载本地语音识别模型，然后将模型放在```resource/model```文件夹当中。
+5. 下载本地whisper语音识别模型，然后将模型放在```resource/model```文件夹当中。 
+- [夸克网盘链接，提取码：sT8v](https://pan.quark.cn/s/7a425a06541b)
+- [百度网盘链接，提取码：hjpw](https://pan.baidu.com/s/1b-unetzLQpe1Qspj_bg9_A)
 
-6. 可以在```resource/skill```文件夹当中存放传送给Deepseek的有关会议纪要的写法与注意事项。推荐使用Markdown格式。
+6. 可以选择自定义Deepseek提示词模板，请修改```resource/skill/skill.md```文件。注意不要删除特殊符号，比如“#”等。
 
 7. 运行```main.py```,
    - 在项目根目录的终端中：
@@ -69,8 +71,8 @@ meeting-minutes-ai/
 │   │   ├── loader.py             # 加载/校验已有 wav/mp3 文件
 │   │   └── converter.py          # 格式转换、重采样(给 ASR 喂标准输入)
 │   │
-│   ├── asr/                      # ASR 模型
-│   │   └── local_asr.py          # 本地模型实现(读取 resource/model/)
+│   ├── whisper/                      # ASR 模型
+│   │   └── whisper.py          # 本地模型实现(读取 resource/model/)
 │   │
 │   ├── llm/                      # ── Deepseek 接入层 ──
 │   │   ├── llm_client.py         # Deepseek SDK 客户端封装(重试、超时、错误处理)
@@ -88,7 +90,7 @@ meeting-minutes-ai/
 ├── resource/
 │   ├── model/                    # 本地 ASR 模型权重
 │   ├── skill/                    # 给 Deepseek 的提示词模板(md)
-│   │   └── example.md
+│   │   └── skill.md
 │   └── pictures/
 │
 └── output/
