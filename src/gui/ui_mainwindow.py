@@ -46,7 +46,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             lambda: self.ui_functions.select_file("音频文件 (*.wav *.mp3)", self.vocal_file_path)
         )
         self.btn_select_model.clicked.connect(
-            lambda: self.ui_functions.select_file("所有文件 (*.*)", self.model_file_path)
+            lambda: self.ui_functions.select_file("模型文件 (*.bin)", self.model_file_path)
         )
 
         # 打开文件夹
@@ -55,6 +55,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         )
         self.btn_model_folder.clicked.connect(
             lambda: self.ui_functions.open_folder(str(MODEL_DIR))
+        )
+
+        # 运行本地模型并转录
+        self.btn_start_trans.clicked.connect(
+            lambda: self.ui_functions.generate_transcript(self.model_file_path.text(), self.vocal_file_path.text())
         )
 
 

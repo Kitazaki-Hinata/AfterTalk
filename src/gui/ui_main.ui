@@ -22,7 +22,41 @@
   <property name="styleSheet">
    <string notr="true">background: #ffeaeb;
 border:0;
-padding:0;</string>
+padding:0;
+
+/*全局checkbox样式 多选框*/
+QCheckBox {
+            spacing: 8px;    /*多选框与字体的空格*/
+            font-size: 11px;
+        }
+        
+QCheckBox::indicator {
+            width: 12px;
+            height: 12px;
+            border: 1px solid #555555;
+            border-radius: 5px;
+            background: #202023;
+        }
+        
+QCheckBox::indicator:hover {
+            border: 1px solid #ffffff;
+        }
+
+        
+QCheckBox::indicator:checked {
+            border: 1px solid #90b6e7;
+            image: url(:/png/png/true.png);
+        }
+QCheckBox::indicator:disabled {
+            border: 1px solid #454555;
+            background: #454555;
+        }
+        
+        QCheckBox::indicator:checked:disabled {
+            background: #454555;
+            border: 2px solid #454555;
+        }
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -338,6 +372,25 @@ QPushButton::pressed {
 }</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color:red</string>
+               </property>
+               <property name="text">
+                <string>注意：转录需要使用空闲CPU线程，请确保设备散热正常。模型大小决定准确度和转录速度，tiny最快但是准度差，medium准度很高但10分钟会议大约需要5分钟转录，请自行选择合适模型。</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
              <item>
               <widget class="QWidget" name="select_vocal_widget" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_2">

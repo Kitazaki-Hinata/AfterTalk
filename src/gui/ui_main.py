@@ -28,7 +28,42 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QSize(1150, 750))
         MainWindow.setStyleSheet(u"background: #ffeaeb;\n"
 "border:0;\n"
-"padding:0;")
+"padding:0;\n"
+"\n"
+"/*\u5168\u5c40checkbox\u6837\u5f0f \u591a\u9009\u6846*/\n"
+"QCheckBox {\n"
+"            spacing: 8px;    /*\u591a\u9009\u6846\u4e0e\u5b57\u4f53\u7684\u7a7a\u683c*/\n"
+"            font-size: 11px;\n"
+"        }\n"
+"        \n"
+"QCheckBox::indicator {\n"
+"            width: 12px;\n"
+"            height: 12px;\n"
+"            border: 1px solid #555555;\n"
+"            border-radius: 5px;\n"
+"            background: #202023;\n"
+"        }\n"
+"        \n"
+"QCheckBox::indicator:hover {\n"
+"            border: 1px solid #ffffff;\n"
+"        }\n"
+"\n"
+"        \n"
+"QCheckBox::indicator:checked {\n"
+"            border: 1px solid #90b6e7;\n"
+"            image: url(:/png/png/true.png);\n"
+"        }\n"
+"QCheckBox::indicator:disabled {\n"
+"            border: 1px solid #454555;\n"
+"            background: #454555;\n"
+"        }\n"
+"        \n"
+"        QCheckBox::indicator:checked:disabled {\n"
+"            background: #454555;\n"
+"            border: 2px solid"
+                        " #454555;\n"
+"        }\n"
+"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -222,6 +257,17 @@ class Ui_MainWindow(object):
 "}")
         self.verticalLayout_8 = QVBoxLayout(self.widget_3)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.label = QLabel(self.widget_3)
+        self.label.setObjectName(u"label")
+        font3 = QFont()
+        font3.setPointSize(10)
+        font3.setBold(True)
+        self.label.setFont(font3)
+        self.label.setStyleSheet(u"color:red")
+        self.label.setWordWrap(True)
+
+        self.verticalLayout_8.addWidget(self.label)
+
         self.select_vocal_widget = QWidget(self.widget_3)
         self.select_vocal_widget.setObjectName(u"select_vocal_widget")
         self.horizontalLayout_2 = QHBoxLayout(self.select_vocal_widget)
@@ -277,25 +323,25 @@ class Ui_MainWindow(object):
         self.btn_start_trans = QPushButton(self.widget_3)
         self.btn_start_trans.setObjectName(u"btn_start_trans")
         self.btn_start_trans.setMinimumSize(QSize(0, 20))
-        font3 = QFont()
-        font3.setBold(True)
-        self.btn_start_trans.setFont(font3)
+        font4 = QFont()
+        font4.setBold(True)
+        self.btn_start_trans.setFont(font4)
 
         self.verticalLayout_8.addWidget(self.btn_start_trans)
 
         self.btn_trans_and_minutes = QPushButton(self.widget_3)
         self.btn_trans_and_minutes.setObjectName(u"btn_trans_and_minutes")
         self.btn_trans_and_minutes.setMinimumSize(QSize(0, 20))
-        self.btn_trans_and_minutes.setFont(font3)
+        self.btn_trans_and_minutes.setFont(font4)
 
         self.verticalLayout_8.addWidget(self.btn_trans_and_minutes)
 
         self.btn_trans_folder = QPushButton(self.widget_3)
         self.btn_trans_folder.setObjectName(u"btn_trans_folder")
         self.btn_trans_folder.setMinimumSize(QSize(0, 20))
-        font4 = QFont()
-        font4.setBold(False)
-        self.btn_trans_folder.setFont(font4)
+        font5 = QFont()
+        font5.setBold(False)
+        self.btn_trans_folder.setFont(font5)
         self.btn_trans_folder.setStyleSheet(u"color: black")
 
         self.verticalLayout_8.addWidget(self.btn_trans_folder)
@@ -450,14 +496,14 @@ class Ui_MainWindow(object):
         self.btn_minutes = QPushButton(self.minute_widget_center)
         self.btn_minutes.setObjectName(u"btn_minutes")
         self.btn_minutes.setMinimumSize(QSize(0, 20))
-        self.btn_minutes.setFont(font3)
+        self.btn_minutes.setFont(font4)
 
         self.verticalLayout_9.addWidget(self.btn_minutes)
 
         self.btn_minute_folder = QPushButton(self.minute_widget_center)
         self.btn_minute_folder.setObjectName(u"btn_minute_folder")
         self.btn_minute_folder.setMinimumSize(QSize(0, 20))
-        self.btn_minute_folder.setFont(font4)
+        self.btn_minute_folder.setFont(font5)
 
         self.verticalLayout_9.addWidget(self.btn_minute_folder)
 
@@ -510,10 +556,10 @@ class Ui_MainWindow(object):
 
         self.name_label = QLabel(self.centralwidget)
         self.name_label.setObjectName(u"name_label")
-        font5 = QFont()
-        font5.setFamilies([u"\u5fae\u8f6f\u96c5\u9ed1"])
-        font5.setBold(False)
-        self.name_label.setFont(font5)
+        font6 = QFont()
+        font6.setFamilies([u"\u5fae\u8f6f\u96c5\u9ed1"])
+        font6.setBold(False)
+        self.name_label.setFont(font6)
         self.name_label.setStyleSheet(u"color : #C76E8D")
         self.name_label.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
@@ -539,6 +585,7 @@ class Ui_MainWindow(object):
         self.btn_end_record.setText(QCoreApplication.translate("MainWindow", u"\u505c\u6b62\u5f55\u97f3", None))
         self.btn_record_folder.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u5f55\u97f3\u6587\u4ef6\u5939", None))
         self.transcript_label.setText(QCoreApplication.translate("MainWindow", u"  \u4f1a\u8bae\u5e95\u7a3f\u8f6c\u5f55\u8bbe\u5b9a", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u6ce8\u610f\uff1a\u8f6c\u5f55\u9700\u8981\u4f7f\u7528\u7a7a\u95f2CPU\u7ebf\u7a0b\uff0c\u8bf7\u786e\u4fdd\u8bbe\u5907\u6563\u70ed\u6b63\u5e38\u3002\u6a21\u578b\u5927\u5c0f\u51b3\u5b9a\u51c6\u786e\u5ea6\u548c\u8f6c\u5f55\u901f\u5ea6\uff0ctiny\u6700\u5feb\u4f46\u662f\u51c6\u5ea6\u5dee\uff0cmedium\u51c6\u5ea6\u5f88\u9ad8\u4f4610\u5206\u949f\u4f1a\u8bae\u5927\u7ea6\u9700\u89815\u5206\u949f\u8f6c\u5f55\uff0c\u8bf7\u81ea\u884c\u9009\u62e9\u5408\u9002\u6a21\u578b\u3002", None))
         self.select_vocal_label.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u97f3\u9891\u6587\u4ef6", None))
         self.vocal_file_path.setText("")
         self.vocal_file_path.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Recording file path", None))
