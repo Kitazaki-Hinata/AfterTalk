@@ -39,6 +39,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             lambda: self.ui_functions.open_folder(str(RECORDINGS_DIR))
         )
 
+        # 开始录音：传入命名框文件名（不含后缀，留空则默认日期时间）
+        self.btn_start_record.clicked.connect(
+            lambda: self.ui_functions.start_recording(self.rename_file_box.text())
+        )
+
+        # 停止录音并自动转录
+        self.btn_end_record.clicked.connect(
+            lambda: self.ui_functions.stop_recording()
+        )
+        # 未开始录音时停止按钮不可用
+        self.btn_end_record.setEnabled(False)
+
 
         '''底稿转录部分 功能对接'''
         # 选择文件并获得路径
@@ -62,6 +74,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             lambda: self.ui_functions.generate_transcript(self.model_file_path.text(), self.vocal_file_path.text())
         )
 
+        # 一键生成文档
+        self.btn_trans_and_minutes.clicked.connect(
+            lambda: self.ui_functions.one_time_transcript_and_minutes(
+                self.model_file_path.text(),
+                self.vocal_file_path.text(),
+                self.ds_model_combobox.currentText(),
+                self.skill_checkbox
+            )
+        )
 
         '''会议纪要部分 功能对接'''
         # 选择文件并获得路径

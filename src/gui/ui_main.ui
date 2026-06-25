@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>AfterTalk</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #ffeaeb;
@@ -208,22 +208,6 @@ QPushButton::pressed {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="record_status">
-               <property name="styleSheet">
-                <string notr="true">background: #EDD3DC</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
-               </property>
-               <property name="placeholderText">
-                <string>此处显示录音状态</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QWidget" name="widget_4" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_9">
                 <item>
@@ -237,6 +221,9 @@ QPushButton::pressed {
                  <widget class="QLineEdit" name="rename_file_box">
                   <property name="styleSheet">
                    <string notr="true">background:white</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>默认是日期时间，不需要输入文件后缀</string>
                   </property>
                  </widget>
                 </item>

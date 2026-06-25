@@ -44,9 +44,26 @@ class Ui_Function:
         self.main_window = main_window
         self._threads: set = set()  # 持有运行中的(线程, worker)，防止被GC回收
 
+        # 录音相关状态：录音器、计时器、已录秒数、本次录音锁定的文件名
+        self._recorder = None                 # AudioRecorder，首次开始录音时惰性创建
+        self._record_filename: str = ""       # 点击开始录音时锁定的文件名（不含后缀）
+        self._record_elapsed: int = 0         # 已录制秒数，用于驱动 timer_show
+        self._record_timer = QTimer()
+        self._record_timer.setInterval(1000)  # 每秒触发一次，刷新计时显示
+        self._record_timer.timeout.connect(self._tick_record_timer)
+
     # 控制台输入输出
     def console_output(self, message: str):
         self.main_window.console_text.append(f"{time.strftime('%H:%M:%S')}:  {message}")  # QTextEdit控件添加内容
+
+    # 控制台强提示：红色加粗，用于重名/错误等需要最强提醒的场景
+    def console_output_error(self, message: str):
+        ts = time.strftime('%H:%M:%S')
+        html = f'<span style="color:#ff0000; font-weight:bold;">⚠ {ts}:  {message}</span>'
+        self.main_window.console_text.append(html)
+        # 复位文本格式，避免后续普通日志继承红色加粗
+        self.main_window.console_text.setTextColor(QColor("black"))
+        self.main_window.console_text.setFontWeight(QFont.Weight.Normal)
 
     # 选择文件function, 传入参数：文件类型，路径输出部件
     def select_file(self, file_type: str = "*.*", line_edit: Optional[QLineEdit] = None):
@@ -92,15 +109,93 @@ class Ui_Function:
 
 
 
+    '''录音功能'''
+    # 开始录音：锁定文件名、启动麦克风采集、计时归零并开始计时
+    def start_recording(self, filename: str = ""):
+        from src.audio.recorder import AudioRecorder
+
+        if self._recorder is None:
+            self._recorder = AudioRecorder()
+
+        if self._recorder.is_recording:
+            self.console_output("正在录音中，请先停止当前录音。")
+            return
+
+        # 重名检查：解析出实际文件名后，若 recordings 目录已有同名 wav，则中止本次录音并要求改名
+        from src.config.paths import RECORDINGS_DIR
+        resolved_name = AudioRecorder._resolve_filename(filename)
+        if (RECORDINGS_DIR / f"{resolved_name}.wav").exists():
+            self.console_output_error(
+                f"文件名「{resolved_name}」已存在，本次录音已中止！请修改音频文件命名后重新开始录音。"
+            )
+            return
+
+        # 在点击开始录音的此刻锁定文件名，避免录音过程中改动输入框影响结果
+        self._record_filename = filename
+
+        try:
+            self._recorder.start(console_output=self.console_output)
+        except Exception as e:
+            log.error(f"启动录音失败：{e}")
+            self.console_output(f"启动录音失败：{e}")
+            return
+
+        # 计时器归零后启动
+        self._record_elapsed = 0
+        self.main_window.timer_show.setTime(QTime(0, 0, 0))
+        self._record_timer.start()
+
+        # 按钮状态：录音期间禁用开始、启用停止，防止重复点击
+        self.main_window.btn_start_record.setEnabled(False)
+        self.main_window.btn_end_record.setEnabled(True)
+
+    # 每秒刷新一次计时显示 timer_show
+    def _tick_record_timer(self):
+        self._record_elapsed += 1
+        h, rem = divmod(self._record_elapsed, 3600)
+        m, s = divmod(rem, 60)
+        self.main_window.timer_show.setTime(QTime(h, m, s))
+
+    # 停止录音：停表、停采集并落盘，随后自动转录该录音
+    def stop_recording(self):
+        if self._recorder is None or not self._recorder.is_recording:
+            self.console_output("当前没有正在进行的录音。")
+            return
+
+        # 先停计时，再恢复按钮状态
+        self._record_timer.stop()
+        self.main_window.btn_start_record.setEnabled(True)
+        self.main_window.btn_end_record.setEnabled(False)
+
+        # 清除文件名称框
+        self.main_window.rename_file_box.clear()
+
+        try:
+            audio_path = self._recorder.stop(self._record_filename, console_output=self.console_output)
+        except Exception as e:
+            log.error(f"停止录音失败：{e}")
+            self.console_output(f"停止录音失败：{e}")
+            return
+
+        # 把录音路径填入音频文件框
+        self.console_output(f"录音已保存：{audio_path}, 音频转录底稿部分已自动选择音频文件。")
+        self.main_window.vocal_file_path.setText(audio_path)
+        return
+
+
     '''对接后端的功能函数'''
     # 生成会议纪要，调用llm
-    def generate_minutes(self, model : str, skill_checkbox : Any):
+    def generate_minutes(self, model : str, skill_checkbox : Any , extra_file_path : str|None = None):
         self.console_output(f"开始生成会议纪要，使用模型: {model}")
         from src.llm.llm_client import create_client, ds_requests
 
         # 获取输入的底稿文件路径
         try:
-            txt_file_path : str = self.main_window.txt_file_path.text().strip()
+            if extra_file_path:
+                txt_file_path : str = extra_file_path
+            else:
+                txt_file_path : str = self.main_window.txt_file_path.text().strip()
+
             if txt_file_path:
                 self.console_output(f"正在处理文件: {txt_file_path}")
             else:
@@ -155,7 +250,7 @@ class Ui_Function:
 
 
     # 调用本地whisper模型生成transcript
-    def generate_transcript(self, model_file_path : str, audio_file_path : str):
+    def generate_transcript(self, model_file_path : str, audio_file_path : str) -> str | None:
         from src.whisper.whisper import whisper_generate_transcript
 
         # 校验模型与音频文件路径是否已填写
@@ -185,6 +280,50 @@ class Ui_Function:
         if result:
             self.console_output("会议文本转录完成。请查看output/transcript目录")
         # 失败时 whisper_generate_transcript 已通过 console_output 给出中文提示，无需重复
+
+    # 一键转录底稿+AI请求
+    def one_time_transcript_and_minutes(
+            self,
+            model_file_path : str,
+            audio_file_path : str,
+            model : str,
+            skill_checkbox : Any
+    ):
+        # 首先依次检查每个参数是否填入
+        check_parameters = [
+            (model_file_path, "whisper 模型文件"),
+            (audio_file_path, "音频文件"),
+            (model, "LLM 模型"),
+        ]
+        
+        for value, message in check_parameters:
+            if not value:
+                self.console_output(f"{message}未填入。")
+                log.warning(f"{message}未填入。")
+                return
+
+        from src.whisper.whisper import whisper_generate_transcript
+
+        self.console_output(f"开始一键转录，使用模型: {model_file_path}")
+
+        # whisper 在子线程执行，转录完成后才能拿到 txt 路径，
+        # 把第二步（生成会议纪要）放到 on_finished 回调里，由信号触发
+        # 用闭包捕获 model / skill_checkbox 供回调使用。
+        def _on_transcript_done(txt_file_path: Optional[str]):
+            if not txt_file_path:
+                # 转录失败，whisper_generate_transcript 已通过 console_output 提示
+                return
+            self.console_output("转录完成，开始生成会议纪要...")
+            # 将转录得到的路径作为底稿传给 generate_minutes
+            self.generate_minutes(model, skill_checkbox, extra_file_path=txt_file_path)
+
+        self.run_async(
+            whisper_generate_transcript,
+            model_file_path,
+            audio_file_path,
+            on_finished=_on_transcript_done,
+            disable_widget=self.main_window.btn_trans_and_minutes,
+        )
 
 
 

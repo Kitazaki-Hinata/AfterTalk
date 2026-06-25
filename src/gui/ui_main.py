@@ -157,14 +157,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addWidget(self.timer_widget)
 
-        self.record_status = QLineEdit(self.widget_2)
-        self.record_status.setObjectName(u"record_status")
-        self.record_status.setStyleSheet(u"background: #EDD3DC")
-        self.record_status.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
-        self.record_status.setReadOnly(True)
-
-        self.verticalLayout_7.addWidget(self.record_status)
-
         self.widget_4 = QWidget(self.widget_2)
         self.widget_4.setObjectName(u"widget_4")
         self.horizontalLayout_9 = QHBoxLayout(self.widget_4)
@@ -573,14 +565,14 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"AfterTalk", None))
         self.topic_label.setText(QCoreApplication.translate("MainWindow", u"AfterTalk", None))
         self.topic_two.setText(QCoreApplication.translate("MainWindow", u"\u57fa\u4e8e\u672c\u5730\u6a21\u578b + Deepseek SDK \u7684\u4f1a\u8bae\u7eaa\u8981\u5de5\u5177", None))
         self.record_label.setText(QCoreApplication.translate("MainWindow", u"  \u5f55\u97f3\u8bbe\u5b9a", None))
         self.timer_label.setText(QCoreApplication.translate("MainWindow", u"\u8ba1\u65f6", None))
         self.timer_show.setDisplayFormat(QCoreApplication.translate("MainWindow", u"H:mm:ss", None))
-        self.record_status.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u6b64\u5904\u663e\u793a\u5f55\u97f3\u72b6\u6001", None))
         self.rename_file_label.setText(QCoreApplication.translate("MainWindow", u"\u97f3\u9891\u6587\u4ef6\u547d\u540d", None))
+        self.rename_file_box.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u9ed8\u8ba4\u662f\u65e5\u671f\u65f6\u95f4\uff0c\u4e0d\u9700\u8981\u8f93\u5165\u6587\u4ef6\u540e\u7f00", None))
         self.btn_start_record.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u5f55\u97f3", None))
         self.btn_end_record.setText(QCoreApplication.translate("MainWindow", u"\u505c\u6b62\u5f55\u97f3", None))
         self.btn_record_folder.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u5f55\u97f3\u6587\u4ef6\u5939", None))

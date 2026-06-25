@@ -46,7 +46,7 @@ def _load_audio_16k_mono(audio_file_path: str) -> np.ndarray:
 
     return mono.astype(np.float32)
 
-
+# 返回路径的str格式，在一次性生成底稿和会议纪要时，需要路径寻找文件
 def whisper_generate_transcript(
     model_file_path: str,
     audio_file_path: str,

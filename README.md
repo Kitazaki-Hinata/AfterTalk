@@ -67,9 +67,7 @@ meeting-minutes-ai/
 │   │   └── paths.py              # 集中管理路径常量
 │   │
 │   ├── audio/                    # ── 音频模块 ──
-│   │   ├── recorder.py           # 实时录音
-│   │   ├── loader.py             # 加载/校验已有 wav/mp3 文件
-│   │   └── converter.py          # 格式转换、重采样(给 ASR 喂标准输入)
+│   │   └── recorder.py           # 实时录音，转出文件
 │   │
 │   ├── whisper/                      # ASR 模型
 │   │   └── whisper.py          # 本地模型实现(读取 resource/model/)
