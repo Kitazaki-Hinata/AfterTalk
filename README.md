@@ -29,9 +29,9 @@
 - 在进入应用的图形界面之后，在图片所示的区域粘贴Deepseek API KEY，然后点击传入。应用会自动生成```.env```文件并传入API KEY。
 
 ![示例图片](resource/pictures/api_key.png "示例图片")
-- 或者：在根目录创建一个文件，命名为```.env```，然后使用文本文档的方式打开文件，将引号内字符替换为第三步中deepseek提供的API key：
+- 或者：在根目录创建一个文件，命名为```.env```，然后使用文本文档的方式打开文件，将等于号```=```字符替换为第三步中deepseek提供的API key：
     ```env
-    DEEPSEEK_API = "sk-Enter-The-API-Key-Here"
+    API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxx
     ```
 ![示例图片](resource/pictures/envfile_screenshot.png "示例图片")
 
