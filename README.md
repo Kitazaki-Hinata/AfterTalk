@@ -20,6 +20,7 @@
 2. 运行```启动AfterTalk.bat``` 自动安装虚拟环境和所需要的依赖，并启动图形界面。
    
 ![示例图片](resource/pictures/bat_start.png "示例图片")
+
 3. 按 Deepseek 官方文档安装，充值token并配置 Deepseek SDK（包含 API Key/认证信息）[点击跳转到deepseek页面](https://platform.deepseek.com/usage。)   
 
 ![示例图片](resource/pictures/deepseek.png "示例图片")
