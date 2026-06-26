@@ -9,11 +9,11 @@
 ### 一、项目目标
 使用whisper cpp模型将会议录音转换为会议底稿（transcript），再通过 Deepseek SDK 对 transcript 进行整理与生成结构化会议纪要。音频输入支持：实时录音或上传已有音频文件（wav与mp3格式 ）。
 > [!WARNING]
-> 强烈建议生成完之后检查纪要内容。AI有时无法识别正确的公司名称或者产品名称,需要自行修改
+> 强烈建议生成完之后检查纪要内容。AI有时无法识别正确的公司名称或者产品名称，需要自行修改。
 ### 二、主要功能
 - 本地录音并保存为标准音频文件（wav/mp3）。
 - 使用本地whisper模型将音频转写为文本（transcript）。
-- 将 transcript 传给 Deepseek SDK，生成结构化会议纪要并回传给 GUI 展示或导出。
+- 将 transcript 传给 Deepseek，生成结构化会议纪要并回传给 GUI 展示或导出。
 
 ### 三、环境与依赖安装（推荐流程）
 1. 使用 Python 3.12 解释器：[点击跳转到download页面](https://www.python.org/downloads/release/python-3120/)
