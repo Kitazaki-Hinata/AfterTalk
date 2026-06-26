@@ -229,6 +229,9 @@ class Ui_Function:
         # 检查checkbox是否需要调用skill.md
         skill = "skill" if skill_checkbox.isChecked() else None
 
+        # 记录底稿文件名，生成的 Word 纪要将沿用同名，便于对应
+        minutes_filename = os.path.splitext(os.path.basename(txt_file_path))[0]
+
         # 将阻塞的网络请求放到后台线程执行，防止GUI卡顿
         # ds_requests 含 console_output 参数，run_async 会自动注入信号发射器
         self.run_async(
@@ -237,15 +240,17 @@ class Ui_Function:
             skill_name=skill,
             model=model,
             client=client,
-            on_finished=self._on_minutes_finished,
+            on_finished=lambda result: self._on_minutes_finished(result, minutes_filename),
             disable_widget=self.main_window.btn_minutes,
         )
 
     # 会议纪要生成完成（成功或失败）的回调，运行在主线程
-    def _on_minutes_finished(self, result: Optional[str]):
+    def _on_minutes_finished(self, result: Optional[str], filename: Optional[str] = None):
         if result:
+            # 将返回的会议纪要写入 output/minutes 下的 Word 文件
+            from src.utils.word_writer import save_minutes_to_word
+            save_minutes_to_word(result, filename=filename, console_output=self.console_output)
             self.console_output("会议纪要生成完成。请查看output/minutes目录")
-            print(result)
         # 失败时 ds_requests 已通过 console_output 给出中文提示，无需重复
 
 

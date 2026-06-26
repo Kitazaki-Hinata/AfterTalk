@@ -7,8 +7,9 @@
 
 
 ### 一、项目目标
-使用whisper cpp模型将会议录音转换为会议底稿（transcript），再通过 Deepseek SDK 对 transcript 进行整理与生成结构化会议纪要。音频输入支持：实时录音或上传已有音频文件（wav/mp3 等）。
-
+使用whisper cpp模型将会议录音转换为会议底稿（transcript），再通过 Deepseek SDK 对 transcript 进行整理与生成结构化会议纪要。音频输入支持：实时录音或上传已有音频文件（wav与mp3格式 ）。
+> [!WARNING]
+> 强烈建议生成完之后检查纪要内容。AI有时无法识别正确的公司名称或者产品名称,需要自行修改
 ### 二、主要功能
 - 本地录音并保存为标准音频文件（wav/mp3）。
 - 使用本地whisper模型将音频转写为文本（transcript）。
@@ -16,22 +17,18 @@
 
 ### 三、环境与依赖安装（推荐流程）
 1. 使用 Python 3.12 解释器：[点击跳转到download页面](https://www.python.org/downloads/release/python-3120/)
-2. 在终端中运行 `uv` 来下载并安装项目依赖（项目已配置 `uv` 安装脚本）。
-
-   - 示例（在项目根目录的终端中，**逐条输入运行**）：
-
-   ```powershell
-   pip install uv
-   ```
-   ```powershell
-   uv sync
-   ```
-
+2. 运行```启动AfterTalk.bat``` 自动安装虚拟环境和所需要的依赖，并启动图形界面。
+   
+![示例图片](resource/pictures/bat_start.png "示例图片")
 3. 按 Deepseek 官方文档安装，充值token并配置 Deepseek SDK（包含 API Key/认证信息）[点击跳转到deepseek页面](https://platform.deepseek.com/usage。)   
 
 ![示例图片](resource/pictures/deepseek.png "示例图片")
 
-4. 在根目录创建一个文件，命名为```.env```，然后使用文本文档的方式打开文件，将引号内字符替换为第三步中deepseek提供的API key：
+4. **传入API KEY** ：两种可选方法
+- 在进入应用的图形界面之后，在图片所示的区域粘贴Deepseek API KEY，然后点击传入。应用会自动生成```.env```文件并传入API KEY。
+
+![示例图片](resource/pictures/api_key.png "示例图片")
+- 或者：在根目录创建一个文件，命名为```.env```，然后使用文本文档的方式打开文件，将引号内字符替换为第三步中deepseek提供的API key：
     ```env
     DEEPSEEK_API = "sk-Enter-The-API-Key-Here"
     ```
@@ -41,13 +38,10 @@
 - [夸克网盘链接，提取码：sT8v](https://pan.quark.cn/s/7a425a06541b)
 - [百度网盘链接，提取码：hjpw](https://pan.baidu.com/s/1b-unetzLQpe1Qspj_bg9_A)
 
-6. 可以选择自定义Deepseek提示词模板，请修改```resource/skill/skill.md```文件。注意不要删除特殊符号，比如“#”等。
+6. 【可选】 修改提示词
+- 可以选择自定义Deepseek提示词模板，请修改```resource/skill/skill.md```文件。注意不要删除特殊符号，比如“#”等。
+- 如果会议**包含特殊行业、产品、公司名称**，请修改```resource/skill/glossary.md```文件，需要参考格式（易出错的名词发音，和正确书写方式）。该文件会尝试帮助AI识别错误名词并修改。
 
-7. 运行```main.py```,
-   - 在项目根目录的终端中：
-    ```powershell
-    python main.py
-    ```
 
 ### 四、项目架构
 <details>
@@ -83,6 +77,7 @@ meeting-minutes-ai/
 │   │
 │   └── utils/                    # ── 通用工具 ──
 │       ├── logger.py             # 统一日志(写到 output/ 或 logs/)
+│       ├── word_writer.py        # 生成doc格式的文件
 │       └── file_utils.py         # 时间戳文件名、文件清理等
 │
 ├── resource/

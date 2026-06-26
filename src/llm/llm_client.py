@@ -45,7 +45,7 @@ def ds_requests(
     client: OpenAI = None,
     console_output: Callable[[str], None] = print,
 ) -> str | None:
-    from src.llm.prompt import load_skill_prompt
+    from src.llm.prompt import load_skill_prompt, load_glossary
 
     transcript = Path(txt_file_path).read_text(encoding="utf-8")
 
@@ -54,6 +54,16 @@ def ds_requests(
         system_prompt = load_skill_prompt(skill_name, console_output=console_output)
     else:
         system_prompt = ""
+
+    # 追加专业术语纠错表，辅助模型校正专有名词/公司名/术语（呼应 skill.md 规则1）
+    glossary = load_glossary(console_output=console_output)
+    if glossary:
+        system_prompt += (
+            "\n\n# 专有名词纠错参考表\n"
+            "以下是本领域常用术语、公司名称与人名的对照表，"
+            "在按规则替换/校正专有名词时请优先参照本表，并遵守表末的「使用说明」：\n\n"
+            + glossary
+        )
 
     console_output("正在请求Deepseek...")
     try:

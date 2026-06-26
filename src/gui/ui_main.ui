@@ -56,9 +56,197 @@ QCheckBox::indicator:disabled {
             background: #454555;
             border: 2px solid #454555;
         }
+
+
+
+/*================================== ====*/
+/* scroll bar*/
+ QScrollBar:vertical {
+	border: none;
+    background: #ffe0e1;
+    width: 8px;
+    margin: 21px 0 21px 0;
+	border-radius: 0px;
+ }
+ QScrollBar::handle:vertical {	
+	background: #ffbfco;
+    min-height: 25px;
+	border-radius: 4px
+ }
+
+
+/*设置上下滑条按钮*/
+ QScrollBar::add-line:vertical {
+     border: none;
+    background: #ffbfco;
+     height: 20px;
+	border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::sub-line:vertical {
+	border: none;
+    background: #ffbfco;
+     height: 20px;
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+
+
+/*防止遮住滑条背景颜色*/
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+ }
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+        
+        
+/*================================== ====*/
+/* 横向滚动条 */
+QScrollBar:horizontal {
+    border: none;
+    background: #ffe0e1;
+    height: 8px;
+    margin: 0px 20px 0px 20px;
+    border-radius: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    	background: #ffbfco;
+    min-height: 25px;
+	border-radius: 4px
+}
+
+
+QScrollBar::add-line:horizontal {
+    border: none;
+    background: #ffbfco;
+    width: 20px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: #ffbfco;
+    width: 20px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
+    background: none;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">
+
+/*================================== ====*/
+/* scroll bar*/
+ QScrollBar:vertical {
+	border: none;
+    background: #ffe0e1;
+    width: 8px;
+    margin: 21px 0 21px 0;
+	border-radius: 0px;
+ }
+ QScrollBar::handle:vertical {	
+	background: #ffbfco;
+    min-height: 25px;
+	border-radius: 4px
+ }
+
+
+/*设置上下滑条按钮*/
+ QScrollBar::add-line:vertical {
+     border: none;
+    background: #ffbfco;
+     height: 20px;
+	border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::sub-line:vertical {
+	border: none;
+    background: #ffbfco;
+     height: 20px;
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+
+
+/*防止遮住滑条背景颜色*/
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+ }
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+        
+        
+/*================================== ====*/
+/* 横向滚动条 */
+QScrollBar:horizontal {
+    border: none;
+    background: #ffe0e1;
+    height: 8px;
+    margin: 0px 20px 0px 20px;
+    border-radius: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    	background: #ffbfco;
+    min-height: 25px;
+	border-radius: 4px
+}
+
+
+QScrollBar::add-line:horizontal {
+    border: none;
+    background: #ffbfco;
+    width: 20px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: #ffbfco;
+    width: 20px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
+    background: none;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
+</string>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="leftMargin">
      <number>9</number>
@@ -877,6 +1065,9 @@ border-radius: 15px;
          <property name="styleSheet">
           <string notr="true">background: #EDD3DC;
 padding :5px;</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
          <property name="placeholderText">
           <string>Console文本与任务进度会显示在此</string>
